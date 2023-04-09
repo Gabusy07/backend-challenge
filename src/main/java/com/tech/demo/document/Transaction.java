@@ -4,20 +4,18 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(value = "users")
+import java.time.LocalDateTime;
+
+@Document(value = "transactions")
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-
+public class Transaction {
     @Id
     private String id;
-    private String name;
-    private String lastname;
-    private String email;
-    private String password;
-    private String document;
-    private String documentType;
+    private String creditCardId;
+    private Double amount;
+    private LocalDateTime date;
 }

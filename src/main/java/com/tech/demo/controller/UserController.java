@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserController {
     private final IUserService userService;
@@ -28,13 +28,5 @@ public class UserController {
         return userService.registerUser(userToRegister);
     }
 
-    @DeleteMapping("/{id}")
-    public Mono<Void> deleteUserById(@PathVariable String id) {
-        return userService.deleteUserById(id);
-    }
 
-    @PutMapping("/{id}")
-    public Mono<UserResponse> updateUser(@PathVariable String id, @RequestBody UserToRegister userToRegister) {
-        return userService.updateUser(id, userToRegister);
-    }
 }

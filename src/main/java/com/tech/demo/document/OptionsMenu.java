@@ -4,20 +4,15 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(value = "users")
+@Document(value = "option_menu")
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class OptionsMenu {
 
     @Id
     private String id;
     private String name;
-    private String lastname;
-    private String email;
-    private String password;
-    private String document;
-    private String documentType;
 }
