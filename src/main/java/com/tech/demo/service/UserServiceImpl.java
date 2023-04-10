@@ -31,6 +31,7 @@ public class UserServiceImpl implements IUserService {
                         .id(user.getId())
                         .email(user.getEmail())
                         .name(user.getName())
+                        .password(user.getPassword())
                         .token("").build()
                 );
     }
