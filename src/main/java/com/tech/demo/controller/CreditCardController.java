@@ -13,7 +13,7 @@ import reactor.core.publisher.Flux;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/credit-card")
+@RequestMapping("/api/credit-card")
 public class CreditCardController {
 
     private final ICreditCardService creditCardService;

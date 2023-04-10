@@ -17,5 +17,5 @@ public class Transaction {
     private String id;
     private String creditCardId;
     private Double amount;
-    private LocalDateTime date;
+    private LocalDateTime createdAt;
 }

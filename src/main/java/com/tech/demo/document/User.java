@@ -15,9 +15,7 @@ public class User {
     @Id
     private String id;
     private String name;
-    private String lastname;
     private String email;
     private String password;
-    private String document;
-    private String documentType;
+
 }

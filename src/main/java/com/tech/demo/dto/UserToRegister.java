@@ -10,9 +10,6 @@ import lombok.*;
 public class UserToRegister {
 
     private String name;
-    private String lastname;
     private String email;
     private String password;
-    private String document;
-    private String documentType;
 }

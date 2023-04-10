@@ -4,8 +4,13 @@ import com.tech.demo.document.User;
 import com.tech.demo.dto.UserResponse;
 import com.tech.demo.dto.UserToRegister;
 
+import com.tech.demo.exception.ResourceAlreadyExistsException;
+import com.tech.demo.exception.ResourceNotFoundException;
 import com.tech.demo.repository.IUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -14,40 +19,46 @@ import reactor.core.publisher.Mono;
 public class UserServiceImpl implements IUserService {
 
     private final IUserRepository userRepository;
+    private final ReactiveMongoTemplate reactiveMongoTemplate;
 
 
     @Override
-    public Mono<UserResponse> getUserById(String id) {
-        return userRepository.findById(id)
-                .map(user -> UserResponse.builder()
+    public Mono<UserResponse> getUserByUsername(String username) {
+        Mono<User> u = userRepository.findByEmail(username)
+                .switchIfEmpty(Mono.error(new ResourceNotFoundException("the user with username "+username+ " has not been found")));
+
+        return u.map(user -> UserResponse.builder()
                         .id(user.getId())
                         .email(user.getEmail())
                         .name(user.getName())
-                        .lastname(user.getLastname())
                         .token("").build()
                 );
     }
 
 
     @Override
-    public Mono<UserResponse> registerUser(UserToRegister userToRegister) {
+    public Mono<Object> registerUser(UserToRegister userToRegister) throws ResourceAlreadyExistsException {
+
+
         User user = User.builder()
                 .name(userToRegister.getName())
-                .lastname(userToRegister.getLastname())
-                .documentType(userToRegister.getDocumentType())
-                .document(userToRegister.getDocument())
                 .email(userToRegister.getEmail())
                 .password(userToRegister.getPassword())
                 .build();
-        return userRepository.save(user)
-                .map(u -> UserResponse.builder()
-                        .id(u.getId())
-                        .email(u.getEmail())
-                        .name(u.getName())
-                        .lastname(u.getLastname())
-                        .token("").build()
 
-        );
+        return reactiveMongoTemplate.findOne(Query.query(Criteria.where("email").is(userToRegister.getEmail())), User.class)
+                .flatMap(existingUser -> Mono.error(new ResourceAlreadyExistsException("El email ya está registrado")))
+                .switchIfEmpty(Mono.defer(() -> {
+                    return reactiveMongoTemplate.save(user)
+                            .map(u -> UserResponse.builder()
+                                    .id(u.getId())
+                                    .email(u.getEmail())
+                                    .name(u.getName())
+                                    .token("").build()
+                            );
+                }));
+
+
     }
 
 }

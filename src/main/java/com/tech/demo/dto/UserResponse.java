@@ -11,10 +11,12 @@ import lombok.*;
 public class UserResponse {
     private String id;
     private String name;
-    private String lastname;
     private String email;
     private String token;
 
     public UserResponse(User t1) {
+    }
+
+    public UserResponse(String id, String name, String email) {
     }
 }

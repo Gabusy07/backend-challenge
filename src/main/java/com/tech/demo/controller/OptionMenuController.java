@@ -1,7 +1,7 @@
 package com.tech.demo.controller;
 
 import com.tech.demo.document.OptionsMenu;
-import com.tech.demo.repository.IOptionMenuRepository;
+
 import com.tech.demo.service.IOptionMenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,7 @@ import reactor.core.publisher.Flux;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/menu")
+@RequestMapping("/api/menu")
 public class OptionMenuController {
     private final IOptionMenuService optionMenuService;
 
