@@ -11,7 +11,7 @@ import reactor.core.publisher.Flux;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/credit-card")
-@CrossOrigin(origins="${client_url}")
+@CrossOrigin(origins="${client}")
 public class CreditCardController {
 
     private final ICreditCardService creditCardService;

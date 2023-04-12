@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
-@CrossOrigin(origins="${client_url}", maxAge = 3600)
+@CrossOrigin(origins="${client}")
 public class UserController {
     private final IUserService userService;
 

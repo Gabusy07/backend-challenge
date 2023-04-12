@@ -15,7 +15,7 @@ import reactor.core.publisher.Flux;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/menu")
-@CrossOrigin(origins="${client_url}")
+@CrossOrigin(origins="${client}")
 public class OptionMenuController {
     private final IOptionMenuService optionMenuService;
 
