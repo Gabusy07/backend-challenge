@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/transaction")
-@CrossOrigin(origins="${client_url}", maxAge = 3600)
+@CrossOrigin(origins="${client_url}")
 public class TransactionController {
     private final ITransactionService transactionService;
 
