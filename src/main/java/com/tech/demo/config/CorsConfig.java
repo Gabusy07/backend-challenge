@@ -5,26 +5,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.reactive.config.CorsRegistry;
+import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 @Configuration
-public class CorsConfig {
+public class CorsConfig implements WebFluxConfigurer {
 
-    @Bean
-    CorsWebFilter corsFilter() {
-
-        CorsConfiguration config = new CorsConfiguration();
-
-        // Possibly...
-        // config.applyPermitDefaultValues()
-
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("https://challenge-96da8.web.app");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-
-        return new CorsWebFilter(source);
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**")
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*");
     }
 }
