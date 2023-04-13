@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
-@CrossOrigin(origins="${client}", methods= {RequestMethod.GET,RequestMethod.POST})
+@CrossOrigin(origins="*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class UserController {
     private final IUserService userService;
 
