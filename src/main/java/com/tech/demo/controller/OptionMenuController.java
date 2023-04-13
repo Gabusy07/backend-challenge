@@ -21,6 +21,6 @@ public class OptionMenuController {
 
     @GetMapping
     public ResponseEntity<Flux<OptionsMenu>> getOptions(){
-        return new ResponseEntity<>(optionMenuService.getAllOptions(), HttpStatus.OK);
+        return new ResponseEntity(optionMenuService.getAllOptions(), HttpStatus.OK);
     }
 }
